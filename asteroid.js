@@ -1,5 +1,5 @@
-MAX_WIDTH = 1000;
-MAX_HEIGHT = 800;
+MAX_WIDTH = 800;
+MAX_HEIGHT = 600;
 NUM_ASTEROIDS = 20;
 ASTEROID_RADIUS = 15;
 MIN_VELOCITY = -10;
@@ -43,6 +43,14 @@ function Asteroid (config) {
 }
 Asteroid.inherits(MovingObject);
 
+Asteroid.randomAsteroid = function() {
+	var x = getRandomInt(0, MAX_WIDTH);
+	var y = getRandomInt(0, MAX_HEIGHT);
+	var xVel = getRandomInt(MIN_VELOCITY, MAX_VELOCITY);
+	var yVel = getRandomInt(MIN_VELOCITY, MAX_VELOCITY);
+	return [x, y, xVel, yVel];
+}
+
 Asteroid.prototype.draw = function(canvasContext) {
 	canvasContext.fillStyle = "red";
 	canvasContext.beginPath();
@@ -64,14 +72,6 @@ function Game () {
   }
 }
 
-Asteroid.randomAsteroid = function() {
-	var x = getRandomInt(0, MAX_WIDTH);
-	var y = getRandomInt(0, MAX_HEIGHT);
-	var xVel = getRandomInt(MIN_VELOCITY, MAX_VELOCITY);
-	var yVel = getRandomInt(MIN_VELOCITY, MAX_VELOCITY);
-	return [x, y, xVel, yVel];
-}
-
 
 Game.prototype.draw = function() {
 	this.canvas.fillStyle = "black";
@@ -83,17 +83,17 @@ Game.prototype.draw = function() {
 }
 
 Game.prototype.update = function() {
-	for (var i = 0; i < NUM_ASTEROIDS; i++) {
+	for (var i = 0; i < this.asteroids.length; i++) {
 		this.asteroids[i].update(this.asteroids[i].xVel, this.asteroids[i].yVel);
 	}
 }
 
 Game.prototype.start = function(canvasEl){
 	var gameFunction = this;
-  this.canvas = canvasEl.getContext("2d");
+  	this.canvas = canvasEl.getContext("2d");
 	window.setInterval(function () {
 		gameFunction.update();
-	  gameFunction.draw(this.canvas);
+		gameFunction.draw(this.canvas);
 	}, 31);
 }
 

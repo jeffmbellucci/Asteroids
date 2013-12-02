@@ -2,8 +2,8 @@ MAX_WIDTH = 800;
 MAX_HEIGHT = 600;
 NUM_ASTEROIDS = 20;
 ASTEROID_RADIUS = 15;
-MIN_VELOCITY = -10;
-MAX_VELOCITY = 10;
+MIN_VELOCITY = -5;
+MAX_VELOCITY = 5;
 
 function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -20,7 +20,7 @@ MovingObject.prototype.update = function(dx, dy) {
 	this.x = Math.abs((this.x + dx + MAX_WIDTH) % MAX_WIDTH);
 	this.y = Math.abs((this.y + dy + MAX_HEIGHT) % MAX_HEIGHT);
 }
-
+  
 MovingObject.prototype.offscreen = function(){
 	if (x < 0 || x > MAX_WIDTH || y < 0 || y > MAX_HEIGHT){
 		return true;
